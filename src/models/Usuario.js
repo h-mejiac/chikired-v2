@@ -5,8 +5,8 @@ const Usuario = new Schema({
     empleado: String,
     nombre: String,
     correo: String,
-    menoroscho: Boolean,
-    mayornueve: Boolean,
+    ochomenos: Boolean,
+    nuevemas: Boolean,
     hijos: Number
 });
 
