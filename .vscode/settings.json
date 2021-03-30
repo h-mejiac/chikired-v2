@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/ee518597-ecbb-4930-8cab-a76e9a25c41b/resourceGroups/G4C/providers/Microsoft.Web/sites/diadelnino",
+    "appService.deploySubpath": "."
+}
