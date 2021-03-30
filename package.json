@@ -27,6 +27,7 @@
     "devDependencies": {
         "babel-loader": "^8.2.2",
         "babel-preset-env": "^1.7.0",
+        "vue": "^2.6.12",
         "vue-loader": "^15.9.6",
         "vue-template-compiler": "^2.6.12",
         "webpack": "^5.28.0",
