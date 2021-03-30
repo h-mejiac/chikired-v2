@@ -17,7 +17,7 @@ router.post('/', async(req, res) => {
 })
 
 router.post('/buscar', async(req, res) => {
-    const usuario = await Usuario.find({ empleado: req.body.empleado });
+    const usuario = await Usuario.findOne({ empleado: req.body.empleado });
     res.json(usuario);
 });
 
@@ -40,6 +40,18 @@ router.delete('/:id', async(req, res) => {
     res.json({
         status: 'Elemento borrado'
     })
+});
+
+router.get('/:id', async(req, res) => {
+    const usuario = await Usuario.findById(req.params.id);
+    res.json(usuario);
+});
+
+router.put('/:id', async(req, res) => {
+    await Usuario.findByIdAndUpdate(req.params.id, req.body);
+    res.json({
+        status: 'Usuario registrado'
+    });
 });
 
 module.exports = router;
