@@ -1,64 +1,77 @@
 <template>
-<div>
-    <div class="container">
-        <div class="row pt-5">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <p v-if="sindatos == 1">Revisa tu información</p>
-                        <div v-if="this.usuarioToEdit.length > 0 ">
-                        <form @submit.prevent="registroUsuario()">
-                            <h4>{{ this.usuario.nombre }}</h4>
-                            <div class="form-group">
-                            <input type="email" v-model="usuario.correo" placeholder="correo" class="form-control">
-                            </div>
-                            <p>¿Qué edad tienen sus hijos?</p>
-                            <div class="form-check">
-                            <input type="checkbox" name="menorocho" id="menorocho" class="form-check-input" v-model="usuario.menorocho" value="true">
-                            <label class="form-check-label" for="menorocho">Menor de 8 años de edad</label>
-                            </div>
-                            <div class="form-check">
-                            <input type="checkbox" name="mayornueve" id="mayornueve" class="form-check-input" v-model="usuario.mayornueve" value="true">
-                            <label class="form-check-label" for="mayornueve">Mayor de 9 años de edad</label>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label for="hijos">¿Cúantos hijos tiene?</label>
-                                <select class="form-control" id="hijos" v-model="usuario.hijos">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-primary btn-block">Iniciar</button>
-                        </form>
+    <div class="planetas-der">
+        <div class="planetas-izq">
+            <div class="container h-100">
+            <div id='stars'></div>
+            <div id='stars2'></div>
+            <div id='stars3'></div>
+                <div class="row pt-2 h-100 d-flex flex-wrap align-items-center">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="text-center">
+                            <img src="assets/images/logo.png" class="img-fluid logo" alt="">
                         </div>
-                        <div v-else>
-                        <div v-if="this.registro">
-                            Gracias por su registro
+                        <div class="card mt-3" v-if="!this.registro">
+                            <div class="card-body text-center">
+                                <p v-if="sindatos == 1">Revisa tu información</p>
+                                <div v-if="this.usuarioToEdit.length > 0 ">
+                                <form @submit.prevent="registroUsuario()">
+                                    <h4>{{ this.usuario.nombre }}</h4>
+                                    <div class="form-group">
+                                    <input type="email" v-model="usuario.correo" placeholder="correo" class="form-control">
+                                    </div>
+                                    <p>¿Qué edad tienen sus hijos?</p>
+                                    <div class="form-check">
+                                    <input type="checkbox" name="menorocho" id="menorocho" class="form-check-input" v-model="usuario.menorocho" value="true">
+                                    <label class="form-check-label" for="menorocho">Menor de 8 años de edad</label>
+                                    </div>
+                                    <div class="form-check">
+                                    <input type="checkbox" name="mayornueve" id="mayornueve" class="form-check-input" v-model="usuario.mayornueve" value="true">
+                                    <label class="form-check-label" for="mayornueve">Mayor de 9 años de edad</label>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="hijos">¿Cúantos hijos tiene?</label>
+                                        <select class="form-control" id="hijos" v-model="usuario.hijos">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-danger btn-block">Enviar</button>
+                                </form>
+                                </div>
+                                <div v-else>
+                                <form @submit.prevent="buscarUsuario">
+                                    <h3>REGISTRO</h3>
+                                <div class="form-group">
+                                    <input type="text" name="empleado" v-model="usuario.empleado" id="empleado" placeholder="Número de empleado" class="form-control">
+                                </div>
+                                <button class="btn btn-danger btn-block">Iniciar</button>
+                                </form>
+                                </div>
+                            </div>
                         </div>
-                        <div v-else>
-                        <form @submit.prevent="buscarUsuario">
-                        <div class="form-group">
-                            <input type="text" name="empleado" v-model="usuario.empleado" id="empleado" placeholder="Número de empleado" class="form-control">
+                        <div v-if="this.registro" class="text-center mt-5 mb-5 text-white">
+                            <h2>¡GRACIAS POR <br>TU REGISTRO!</h2>
+                            <h4>EN BREVE RECIBIRAS UN <br>correo de confirmación</h4>
                         </div>
-                        <button class="btn btn-primary btn-block">Iniciar</button>
-                        </form>
-                        </div>
+                        <div class="text-center mt-3">
+                            <img src="assets/images/astronauta.png" class="img-fluid astronauta" alt="">
                         </div>
                     </div>
+                    <div class="col-md-2"></div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </template>
 
 <script>
