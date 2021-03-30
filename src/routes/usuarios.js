@@ -16,8 +16,12 @@ router.post('/', async(req, res) => {
     })
 })
 
+router.post('/buscar', async(req, res) => {
+    const usuario = await Usuario.find({ empleado: req.body.empleado });
+    res.json(usuario);
+});
+
 router.put('/:id', async(req, res) => {
-    console.log(req.body);
     await Usuario.findByIdAndUpdate(req.params.id, req.body, (err, usuarioUpdated) => {
         if (err) {
             res.status(500).send({ message: 'Error en registro' });
