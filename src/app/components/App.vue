@@ -20,22 +20,36 @@
 </template>
 
 <script>
+class Usuario {
+    constructor(empleado = '', nombre = '', correo = '', menorocho = false, mayornueve = false, hijos = 0){
+        this.empleado = empleado;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.menorocho = menorocho;
+        this.mayornueve = mayornueve;
+        this.hijos = hijos;
+    }
+}
 export default {
     data() {
         return {
-            usuario: {
-                empleado: '',
-                nombre: '',
-                correo: '',
-                menorocho: '',
-                mayornueve: '',
-                hijos: ''
-            }
+            usuario: new Usuario,
+            usuario: [],
         }
     },
     methods: {
         addUsuario() {
-            console.log(this.usuario)
+            fetch('/api', {
+                method: 'POST',
+                body: JSON.stringify(this.usuario),
+                headers: {
+                    'Accept':'application/json',
+                    'Content-type': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            this.usuario = new Usuario();
         }
     }
 }
