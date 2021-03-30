@@ -17,10 +17,18 @@ router.post('/', async(req, res) => {
 })
 
 router.put('/:id', async(req, res) => {
-    await Usuario.findByIdAndUpdate(req.params.id, req.body);
-    res.json({
-        status: 'Registro correcto'
-    })
+    console.log(req.body);
+    await Usuario.findByIdAndUpdate(req.params.id, req.body, (err, usuarioUpdated) => {
+        if (err) {
+            res.status(500).send({ message: 'Error en registro' });
+        } else {
+            if (!usuarioUpdated) {
+                res.status(404).send({ message: 'Usuario no encontrado' });
+            } else {
+                res.status(200).send({ user: usuarioUpdated })
+            }
+        }
+    });
 });
 
 router.delete('/:id', async(req, res) => {
