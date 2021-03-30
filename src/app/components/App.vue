@@ -21,13 +21,17 @@
                                     <input type="email" v-model="usuario.correo" placeholder="correo" class="form-control">
                                     </div>
                                     <p>¿Qué edad tienen sus hijos?</p>
-                                    <div class="form-check">
-                                    <input type="checkbox" name="menorocho" id="menorocho" class="form-check-input" v-model="usuario.menorocho" value="true">
-                                    <label class="form-check-label" for="menorocho">Menor de 8 años de edad</label>
+                                    <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="5 a 8 años">
+                                    <label class="custom-control-label" for="customRadio1">5 a 8 años</label>
                                     </div>
-                                    <div class="form-check">
-                                    <input type="checkbox" name="mayornueve" id="mayornueve" class="form-check-input" v-model="usuario.mayornueve" value="true">
-                                    <label class="form-check-label" for="mayornueve">Mayor de 9 años de edad</label>
+                                    <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="9 a 12 años">
+                                    <label class="custom-control-label" for="customRadio2">9 a 12 años</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="Tengo hijos de ambas edades">
+                                    <label class="custom-control-label" for="customRadio3">Tengo hijos de ambas edades</label>
                                     </div>
                                     <br>
                                     <div class="form-group">
@@ -76,12 +80,11 @@
 
 <script>
 class Usuario {
-    constructor(empleado = '', nombre = '', correo = '', menorocho = false, mayornueve = false, hijos = 0){
+    constructor(empleado = '', nombre = '', correo = '', rango = '', hijos = 0){
         this.empleado = empleado;
         this.nombre = nombre;
         this.correo = correo;
-        this.menorocho = menorocho;
-        this.mayornueve = mayornueve;
+        this.rango = rango;
         this.hijos = hijos;
     }
 }
@@ -120,8 +123,8 @@ export default {
             .then(res => res.json())
             .then(data => {
                 if (data) {
-                    const { _id, empleado, nombre, correo, menorocho, mayornueve, hijos } = data;
-                    this.usuario = new Usuario(empleado, nombre, correo, menorocho, mayornueve, hijos);
+                    const { _id, empleado, nombre, correo, rango, hijos } = data;
+                    this.usuario = new Usuario(empleado, nombre, correo, rango, hijos);
                     this.usuarioToEdit = _id;
                     this.sindatos = false;
                 } else {

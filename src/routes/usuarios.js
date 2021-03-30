@@ -1,5 +1,6 @@
 const express = require('express');
 const Usuario = require('../models/Usuario');
+var nodemailer = require('nodemailer');
 const router = express.Router();
 
 router.get('/', async(req, res) => {
@@ -49,6 +50,8 @@ router.get('/:id', async(req, res) => {
 
 router.put('/:id', async(req, res) => {
     await Usuario.findByIdAndUpdate(req.params.id, req.body);
+    //
+
     res.json({
         status: 'Usuario registrado'
     });
