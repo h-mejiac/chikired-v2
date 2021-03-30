@@ -18,11 +18,11 @@
                                 <form @submit.prevent="registroUsuario()">
                                     <h4>{{ this.usuario.nombre }}</h4>
                                     <div class="form-group">
-                                    <input type="email" v-model="usuario.correo" placeholder="correo" class="form-control">
+                                    <input type="email" v-model="usuario.correo" placeholder="correo" class="form-control" required>
                                     </div>
                                     <p>¿Qué edad tienen sus hijos?</p>
                                     <div class="custom-control custom-radio">
-                                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="5 a 8 años">
+                                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="5 a 8 años" required>
                                     <label class="custom-control-label" for="customRadio1">5 a 8 años</label>
                                     </div>
                                     <div class="custom-control custom-radio">
@@ -36,7 +36,7 @@
                                     <br>
                                     <div class="form-group">
                                         <label for="hijos">¿Cúantos hijos tiene?</label>
-                                        <select class="form-control" id="hijos" v-model="usuario.hijos">
+                                        <select class="form-control" id="hijos" v-model="usuario.hijos" required>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
