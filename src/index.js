@@ -23,7 +23,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // routes
-app.use('/api', require('./routes/tasks'));
+app.use('/api', require('./routes/usuarios'));
 
 // static
 app.use(express.static(path.join(__dirname, 'public')));;
