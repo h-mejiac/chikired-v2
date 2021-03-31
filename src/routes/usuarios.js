@@ -1,7 +1,9 @@
 const express = require('express');
 const Usuario = require('../models/Usuario');
-var nodemailer = require('nodemailer');
 const router = express.Router();
+const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 router.get('/', async(req, res) => {
     const usuarios = await Usuario.find();
@@ -30,7 +32,26 @@ router.put('/:id', async(req, res) => {
             if (!usuarioUpdated) {
                 res.status(404).send({ message: 'Usuario no encontrado' });
             } else {
-                res.status(200).send({ user: usuarioUpdated })
+                //enviar correo
+                const msg = {
+                    to: usuarioUpdated['correo'],
+                    from: 'Día del niño <evento@chikired.com>',
+                    templateId: 'd-ef45e9182509484381a2ad1c42dc96fd',
+                    dynamic_template_data: {
+                        nombre: usuarioUpdated['nombre'],
+                        rango: usuarioUpdated['rango']
+                    }
+                };
+
+                sgMail
+                    .send(msg)
+                    .then(() => {
+                        console.log('Email sent')
+                    })
+                    .catch((error) => {
+                        console.error(error)
+                    });
+                res.status(200).send({ user: usuarioUpdated });
             }
         }
     });
@@ -46,15 +67,6 @@ router.delete('/:id', async(req, res) => {
 router.get('/:id', async(req, res) => {
     const usuario = await Usuario.findById(req.params.id);
     res.json(usuario);
-});
-
-router.put('/:id', async(req, res) => {
-    await Usuario.findByIdAndUpdate(req.params.id, req.body);
-    //
-
-    res.json({
-        status: 'Usuario registrado'
-    });
 });
 
 module.exports = router;

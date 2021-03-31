@@ -21,15 +21,15 @@
                                     <input type="email" v-model="usuario.correo" placeholder="correo" class="form-control" required>
                                     </div>
                                     <p>¿Qué edad tienen sus hijos?</p>
-                                    <div class="custom-control custom-radio">
+                                    <div class="custom-control custom-radio text-left pl-5">
                                     <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="5 a 8 años" required>
                                     <label class="custom-control-label" for="customRadio1">5 a 8 años</label>
                                     </div>
-                                    <div class="custom-control custom-radio">
+                                    <div class="custom-control custom-radio text-left pl-5">
                                     <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="9 a 12 años">
                                     <label class="custom-control-label" for="customRadio2">9 a 12 años</label>
                                     </div>
-                                    <div class="custom-control custom-radio">
+                                    <div class="custom-control custom-radio text-left pl-5">
                                     <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="Tengo hijos de ambas edades">
                                     <label class="custom-control-label" for="customRadio3">Tengo hijos de ambas edades</label>
                                     </div>
