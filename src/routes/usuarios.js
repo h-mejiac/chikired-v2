@@ -33,10 +33,11 @@ router.put('/:id', async(req, res) => {
                 res.status(404).send({ message: 'Usuario no encontrado' });
             } else {
                 //enviar correo
+                console.log(usuarioUpdated['correo']);
                 const msg = {
                     to: usuarioUpdated['correo'],
                     from: 'Día del niño <evento@chikired.com>',
-                    templateId: 'd-ef45e9182509484381a2ad1c42dc96fd',
+                    templateId: 'd-b31ae87fe9c0445988de887fbd57908d',
                     dynamic_template_data: {
                         nombre: usuarioUpdated['nombre'],
                         rango: usuarioUpdated['rango']
@@ -50,6 +51,9 @@ router.put('/:id', async(req, res) => {
                     })
                     .catch((error) => {
                         console.error(error)
+                        console.log('ERROR Sending Report', error);
+                        console.log('ERROR Sending Report', error.toString());
+                        console.log('ERROR Sending Report', error.response.body);
                     });
                 res.status(200).send({ user: usuarioUpdated });
             }
