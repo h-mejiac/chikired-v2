@@ -3,8 +3,10 @@ const Usuario = require('../models/Usuario');
 const router = express.Router();
 const sgMail = require('@sendgrid/mail');
 const { getMaxListeners } = require('../models/Usuario');
+const apiKey = process.env.SendGridKey;
 
-sgMail.setApiKey('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');
+
+sgMail.setApiKey(apiKey);
 
 router.get('/', async(req, res) => {
     const usuarios = await Usuario.find();
