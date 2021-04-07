@@ -1,6 +1,15 @@
 <template>
     <div class="planetas-der">
         <div class="planetas-izq">
+            <div class="row white-bk">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <img src="assets/images/footer.jpg" class="img-fluid astronauta" alt="">
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
             <div class="container h-100">
             <div id='stars'></div>
             <div id='stars2'></div>
@@ -14,6 +23,7 @@
                         <div class="card mt-3" v-if="this.formulario">
                             <div class="card-body text-center">
                                 <p v-if="sindatos == 1">Revisa tu información</p>
+                                <p v-if="mastarde">Por favor vuelve a intentarlo en 2 días</p>
                                 <div v-if="this.usuarioToEdit.length > 0 ">
                                 <form @submit.prevent="registroUsuario()">
                                     <h4>{{ this.usuario.nombre }}</h4>
@@ -65,7 +75,8 @@
                         </div>
                         <div v-if="this.registro" class="text-center mt-5 mb-5 text-white">
                             <h2>¡GRACIAS POR <br>TU REGISTRO!</h2>
-                            <h4>EN BREVE RECIBIRAS UN <br>correo de confirmación</h4>
+                            <h4>EN BREVE RECIBIRÁS UN <br>CORREO DE CONFIRMACIÓN</h4>
+                            <p>Te sugerimos revisar tu bandeja de Promociones, Social o No deseados para confirmar la recepción</p>
                         </div>
                         <div v-if="this.registroHecho" class="text-center mt-5 mb-5 text-white">
                             <h2>EL NÚMERO DE EMPLEADO QUE INGRESÓ YA SE HÁ REGISTRADO</h2>
@@ -76,15 +87,6 @@
                     </div>
                     <div class="col-md-2"></div>
                 </div>
-            </div>
-            <div class="row white-bk">
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-                    <div class="text-center">
-                        <img src="assets/images/footer.jpg" class="img-fluid astronauta" alt="">
-                    </div>
-                </div>
-                <div class="col-md-4"></div>
             </div>
         </div>
     </div>
@@ -107,8 +109,10 @@ export default {
             sindatos: false,
             registro: false,
             registroHecho: false,
+            mastarde: false,
             formulario: true,
             usuarioToEdit: '',
+            contador: 0,
         }
     },
     methods: {
@@ -147,6 +151,13 @@ export default {
                     this.sindatos = false;
                 } else {
                     this.sindatos = true;
+                    console.log(this.contador);
+                    if (this.contador == 1) {
+                        this.mastarde = !this.mastarde;
+                        this.contador = 0;
+                    } else {
+                        this.contador = parseInt(this.contador) + 1;
+                    }
                 }
             })
         },

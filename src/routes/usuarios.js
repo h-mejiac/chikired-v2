@@ -4,7 +4,7 @@ const router = express.Router();
 const sgMail = require('@sendgrid/mail');
 const { getMaxListeners } = require('../models/Usuario');
 
-sgMail.setApiKey('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');
+sgMail.setApiKey('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');
 
 router.get('/', async(req, res) => {
     const usuarios = await Usuario.find();
@@ -34,13 +34,15 @@ router.put('/:id', async(req, res) => {
                 res.status(404).send({ message: 'Usuario no encontrado' });
             } else {
                 //enviar correo
+                console.log(usuarioUpdated['empleado']);
                 const msg = {
                     to: usuarioUpdated['correo'],
-                    from: 'Día del niño <evento@chikired.com>',
-                    templateId: 'd-b31ae87fe9c0445988de887fbd57908d',
+                    from: 'CHIKIRed Día del Niño <evento@chikired.com>',
+                    templateId: 'd-75bce9988af3432b87898c815087762f',
                     dynamic_template_data: {
+                        empleado: usuarioUpdated['empleado'],
                         nombre: usuarioUpdated['nombre'],
-                        rango: usuarioUpdated['rango']
+                        rango: usuarioUpdated['rango'],
                     }
                 };
 
