@@ -44,17 +44,28 @@ router.put('/:id', async(req, res) => {
                     }
                 };
 
-                sgMail
-                    .send(msg)
-                    .then(() => {
-                        console.log('Email sent')
-                    })
-                    .catch((error) => {
-                        console.error(error)
-                        console.log('ERROR Sending Report', error);
-                        console.log('ERROR Sending Report', error.toString());
-                        console.log('ERROR Sending Report', error.response.body);
-                    });
+                // sgMail
+                //     .send(msg)
+                //     .then(() => {
+                //         console.log('Email sent')
+                //     }, error => {
+                //         console.error(error);
+
+                //         if (error.response) {
+                //             console.error(error.response.body)
+                //         }
+                //     });
+                //ES8
+                try {
+                    await sgMail.send(msg);
+                    console.log('Email sent')
+                } catch (error) {
+                    console.error(error);
+
+                    if (error.response) {
+                        console.error(error.response.body)
+                    }
+                }
                 res.status(200).send({ user: usuarioUpdated });
             }
         }

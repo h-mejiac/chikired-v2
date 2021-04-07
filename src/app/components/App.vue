@@ -63,6 +63,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div v-if="this.registroHecho" class="text-center mt-5 mb-5 text-white">
+                            <h2>EL NÚMERO DE EMPLEADO QUE INGRESÓ YA SE HÁ REGISTRADO</h2>
+                        </div>
                         <div v-if="this.registro" class="text-center mt-5 mb-5 text-white">
                             <h2>¡GRACIAS POR <br>TU REGISTRO!</h2>
                             <h4>EN BREVE RECIBIRAS UN <br>correo de confirmación</h4>
@@ -94,6 +97,7 @@ export default {
             usuario: new Usuario,
             sindatos: false,
             registro: false,
+            registroHecho: false,
             usuarioToEdit: '',
         }
     },
@@ -125,6 +129,12 @@ export default {
                 if (data) {
                     const { _id, empleado, nombre, correo, rango, hijos } = data;
                     this.usuario = new Usuario(empleado, nombre, correo, rango, hijos);
+                    console.log(this.usuario.correo);
+                    if (this.usuario.correo == null) {
+                        this.registroHecho = false;
+                    } else {
+                        this.registroHecho = true;
+                    }
                     this.usuarioToEdit = _id;
                     this.sindatos = false;
                 } else {
