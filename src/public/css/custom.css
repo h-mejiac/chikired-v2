@@ -1,13 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 html {
-    height: 100%;
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-    overflow: hidden;
 }
 
 body {
     font-family: 'Varela Round', sans-serif;
-    height: 100%;
     background: url('../assets/images/luna.png') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -75,12 +72,8 @@ body {
     }
 }
 
-.fill {
-    min-height: 100%;
-}
-
 .logo {
-    max-width: 20em;
+    max-width: 23em;
 }
 
 .astronauta {
@@ -103,6 +96,10 @@ body {
     -o-background-size: contain;
     background-size: contain;
     background-position: 100% 0;
+}
+
+.white-bk {
+    background-color: white;
 }
 
 @media (max-width: 768px) {

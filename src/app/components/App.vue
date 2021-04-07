@@ -11,7 +11,7 @@
                         <div class="text-center">
                             <img src="assets/images/logo.png" class="img-fluid logo" alt="">
                         </div>
-                        <div class="card mt-3" v-if="!this.registro">
+                        <div class="card mt-3" v-if="this.formulario">
                             <div class="card-body text-center">
                                 <p v-if="sindatos == 1">Revisa tu información</p>
                                 <div v-if="this.usuarioToEdit.length > 0 ">
@@ -63,12 +63,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-if="this.registroHecho" class="text-center mt-5 mb-5 text-white">
-                            <h2>EL NÚMERO DE EMPLEADO QUE INGRESÓ YA SE HÁ REGISTRADO</h2>
-                        </div>
                         <div v-if="this.registro" class="text-center mt-5 mb-5 text-white">
                             <h2>¡GRACIAS POR <br>TU REGISTRO!</h2>
                             <h4>EN BREVE RECIBIRAS UN <br>correo de confirmación</h4>
+                        </div>
+                        <div v-if="this.registroHecho" class="text-center mt-5 mb-5 text-white">
+                            <h2>EL NÚMERO DE EMPLEADO QUE INGRESÓ YA SE HÁ REGISTRADO</h2>
                         </div>
                         <div class="text-center mt-3">
                             <img src="assets/images/astronauta.png" class="img-fluid astronauta" alt="">
@@ -76,6 +76,15 @@
                     </div>
                     <div class="col-md-2"></div>
                 </div>
+            </div>
+            <div class="row white-bk">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <img src="assets/images/footer.jpg" class="img-fluid astronauta" alt="">
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
             </div>
         </div>
     </div>
@@ -98,6 +107,7 @@ export default {
             sindatos: false,
             registro: false,
             registroHecho: false,
+            formulario: true,
             usuarioToEdit: '',
         }
     },
@@ -129,11 +139,9 @@ export default {
                 if (data) {
                     const { _id, empleado, nombre, correo, rango, hijos } = data;
                     this.usuario = new Usuario(empleado, nombre, correo, rango, hijos);
-                    console.log(this.usuario.correo);
-                    if (this.usuario.correo == null) {
-                        this.registroHecho = false;
-                    } else {
-                        this.registroHecho = true;
+                    if (this.usuario.correo != '') {
+                        this.registroHecho = !this.registroHecho;
+                        this.formulario = !this.formulario;
                     }
                     this.usuarioToEdit = _id;
                     this.sindatos = false;
@@ -155,6 +163,7 @@ export default {
           .then(data => {
             this.usuario = new Usuario();
             this.registro = !this.registro;
+            this.formulario = !this.formulario;
             this.usuarioToEdit = '';
           });
         },
