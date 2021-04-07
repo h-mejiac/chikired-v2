@@ -2,8 +2,9 @@ const express = require('express');
 const Usuario = require('../models/Usuario');
 const router = express.Router();
 const sgMail = require('@sendgrid/mail');
+const { getMaxListeners } = require('../models/Usuario');
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+sgMail.setApiKey('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');
 
 router.get('/', async(req, res) => {
     const usuarios = await Usuario.find();
@@ -33,7 +34,6 @@ router.put('/:id', async(req, res) => {
                 res.status(404).send({ message: 'Usuario no encontrado' });
             } else {
                 //enviar correo
-                console.log(usuarioUpdated['correo']);
                 const msg = {
                     to: usuarioUpdated['correo'],
                     from: 'Día del niño <evento@chikired.com>',
@@ -44,28 +44,17 @@ router.put('/:id', async(req, res) => {
                     }
                 };
 
-                // sgMail
-                //     .send(msg)
-                //     .then(() => {
-                //         console.log('Email sent')
-                //     }, error => {
-                //         console.error(error);
+                sgMail
+                    .send(msg)
+                    .then(() => {
+                        console.log('Email sent')
+                    }, error => {
+                        console.error(error);
 
-                //         if (error.response) {
-                //             console.error(error.response.body)
-                //         }
-                //     });
-                //ES8
-                try {
-                    await sgMail.send(msg);
-                    console.log('Email sent')
-                } catch (error) {
-                    console.error(error);
-
-                    if (error.response) {
-                        console.error(error.response.body)
-                    }
-                }
+                        if (error.response) {
+                            console.error(error.response.body)
+                        }
+                    });
                 res.status(200).send({ user: usuarioUpdated });
             }
         }
