@@ -3,6 +3,11 @@ const Usuario = require('../models/Usuario');
 const router = express.Router();
 const nodemailer = require("nodemailer");
 
+router.get('/', async(req, res) => {
+    const usuarios = await Usuario.find();
+    res.json(usuarios);
+});
+
 router.post('/', async(req, res) => {
     const usuario = new Usuario(req.body);
     await usuario.save();
