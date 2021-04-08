@@ -6,6 +6,7 @@ const Usuario = new Schema({
     nombre: String,
     correo: String,
     rango: String,
+    registro: Date,
     hijos: Number
 });
 

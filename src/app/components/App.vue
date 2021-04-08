@@ -5,7 +5,7 @@
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
                     <div class="text-center">
-                        <img src="assets/images/footer.jpg" class="img-fluid astronauta" alt="">
+                        <img src="assets/images/logos-header.jpg" class="img-fluid astronauta" alt="">
                     </div>
                 </div>
                 <div class="col-md-4"></div>
@@ -68,6 +68,7 @@
                                 <div class="form-group">
                                     <input type="text" name="empleado" v-model="usuario.empleado" id="empleado" placeholder="Número de empleado" class="form-control">
                                 </div>
+                                    <p>Si tienes dudas escríbenos a <a target="_blank" href="mailto:evento@chikired.com">evento@chikired.com</a></p>
                                 <button class="btn btn-danger btn-block">Iniciar</button>
                                 </form>
                                 </div>
@@ -75,11 +76,12 @@
                         </div>
                         <div v-if="this.registro" class="text-center mt-5 mb-5 text-white">
                             <h2>¡GRACIAS POR <br>TU REGISTRO!</h2>
-                            <h4>EN BREVE RECIBIRÁS UN <br>CORREO DE CONFIRMACIÓN</h4>
-                            <p>Te sugerimos revisar tu bandeja de Promociones, Social o No deseados para confirmar la recepción</p>
+                            <h4>EN BREVE RECIBIRÁS UN <br>CORREO DE CONFIRMACIÓN.</h4>
+                            <p>Si tienes problemas en recibir la confirmación, revisa tu bandeja de spam o no deseados. Cualquier duda escríbenos a <a target="_blank" href="mailto:evento@chikired.com">evento@chikired.com</a></p>
                         </div>
                         <div v-if="this.registroHecho" class="text-center mt-5 mb-5 text-white">
-                            <h2>EL NÚMERO DE EMPLEADO QUE INGRESÓ YA SE HÁ REGISTRADO</h2>
+                            <h2>EL NÚMERO DE EMPLEADO QUE INGRESÓ YA SE HÁ REGISTRADO.</h2>
+                            <p>Si tienes problemas en recibir la confirmación, revisa tu bandeja de spam o no deseados. Cualquier duda escríbenos a <a target="_blank" href="mailto:evento@chikired.com">evento@chikired.com</a></p>
                         </div>
                         <div class="text-center mt-3">
                             <img src="assets/images/astronauta.png" class="img-fluid astronauta" alt="">
@@ -94,11 +96,12 @@
 
 <script>
 class Usuario {
-    constructor(empleado = '', nombre = '', correo = '', rango = '', hijos = 0){
+    constructor(empleado = '', nombre = '', correo = '', rango = '', hijos = 0, registro = Date.now()){
         this.empleado = empleado;
         this.nombre = nombre;
         this.correo = correo;
         this.rango = rango;
+        this.registro = registro;
         this.hijos = hijos;
     }
 }
@@ -112,8 +115,12 @@ export default {
             mastarde: false,
             formulario: true,
             usuarioToEdit: '',
+            timestamp: '',
             contador: 0,
         }
+    },
+    created() {
+        setInterval(this.getNow, 1000);
     },
     methods: {
         addUsuario() {
@@ -141,8 +148,9 @@ export default {
             .then(res => res.json())
             .then(data => {
                 if (data) {
-                    const { _id, empleado, nombre, correo, rango, hijos } = data;
-                    this.usuario = new Usuario(empleado, nombre, correo, rango, hijos);
+                    const { _id, empleado, nombre, correo, rango, hijos ,registro } = data;
+                    this.usuario = new Usuario(empleado, nombre, correo, rango, hijos ,registro);
+                    this.usuario.registro = this.timestamp;
                     if (this.usuario.correo != '') {
                         this.registroHecho = !this.registroHecho;
                         this.formulario = !this.formulario;
@@ -177,6 +185,13 @@ export default {
             this.formulario = !this.formulario;
             this.usuarioToEdit = '';
           });
+        },
+        getNow() {
+            const today = new Date();
+            const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            const dateTime = date +' '+ time;
+            this.timestamp = dateTime;
         },
     }
 }
