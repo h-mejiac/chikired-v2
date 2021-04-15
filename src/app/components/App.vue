@@ -29,8 +29,9 @@
                                     <h4>{{ this.usuario.nombre }}</h4>
                                     <div class="form-group">
                                     <input type="email" v-model="usuario.correo" placeholder="correo" class="form-control" required>
+                                    <small id="emailHelp" class="form-text text-muted">Antes de enviar tu solicitud, asegúrate de haber escrito correctamente tu correo electrónico.</small>
                                     </div>
-                                    <p>¿Qué edad tienen sus hijos?</p>
+                                    <p>¿Qué edad tienen sus niños?</p>
                                     <div class="custom-control custom-radio text-left pl-5">
                                     <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="5 a 8 años" required>
                                     <label class="custom-control-label" for="customRadio1">5 a 8 años</label>
@@ -40,13 +41,14 @@
                                     <label class="custom-control-label" for="customRadio2">9 a 12 años</label>
                                     </div>
                                     <div class="custom-control custom-radio text-left pl-5">
-                                    <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="Tengo hijos de ambas edades">
-                                    <label class="custom-control-label" for="customRadio3">Tengo hijos de ambas edades</label>
+                                    <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="Tengo niños de ambas edades">
+                                    <label class="custom-control-label" for="customRadio3">Tengo niños de ambas edades</label>
                                     </div>
                                     <br>
                                     <div class="form-group">
-                                        <label for="hijos">¿Cúantos hijos tiene?</label>
+                                        <label for="hijos">¿Cúantos niños tiene?</label>
                                         <select class="form-control" id="hijos" v-model="usuario.hijos" required>
+                                        <option disabled selected>Selecciona una opción</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -77,11 +79,11 @@
                         <div v-if="this.registro" class="text-center mt-5 mb-5 text-white">
                             <h2>¡GRACIAS POR <br>TU REGISTRO!</h2>
                             <h4>EN BREVE RECIBIRÁS UN <br>CORREO DE CONFIRMACIÓN.</h4>
-                            <p>Si tienes problemas en recibir la confirmación, revisa tu bandeja de spam o no deseados. Cualquier duda escríbenos a <a target="_blank" href="mailto:evento@chikired.com">evento@chikired.com</a></p>
+                            <p>Si no recibes o no te llega el correo de confirmación, revisa tu bandeja de spam o no deseados. Cualquier duda escríbenos a <a target="_blank" href="mailto:evento@chikired.com">evento@chikired.com</a></p>
                         </div>
                         <div v-if="this.registroHecho" class="text-center mt-5 mb-5 text-white">
-                            <h2>EL NÚMERO DE EMPLEADO QUE INGRESÓ YA SE HÁ REGISTRADO.</h2>
-                            <p>Si tienes problemas en recibir la confirmación, revisa tu bandeja de spam o no deseados. Cualquier duda escríbenos a <a target="_blank" href="mailto:evento@chikired.com">evento@chikired.com</a></p>
+                            <h2>EL NÚMERO DE EMPLEADO QUE INGRESÓ YA SE HA REGISTRADO.</h2>
+                            <p>Si no recibes o no te llega el correo de confirmación, revisa tu bandeja de spam o no deseados. Cualquier duda escríbenos a <a target="_blank" href="mailto:evento@chikired.com">evento@chikired.com</a></p>
                         </div>
                         <div class="text-center mt-3">
                             <img src="assets/images/astronauta.png" class="img-fluid astronauta" alt="">

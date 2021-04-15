@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const Usuario = new Schema({
-    empleado: Number,
+    empleado: String,
     nombre: String,
     correo: String,
     rango: String,
