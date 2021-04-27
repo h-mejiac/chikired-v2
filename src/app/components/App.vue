@@ -22,9 +22,7 @@
                         </div>
                         <div class="card mt-3" v-if="this.formulario">
                             <div class="card-body text-center">
-                                <p v-if="sindatos == 1">Revisa tu información</p>
-                                <p v-if="mastarde">Por favor vuelve a intentarlo en 2 días</p>
-                                <div v-if="this.usuarioToEdit.length > 0 ">
+                                <div v-if="this.usuarioToEdit.length > 0">
                                 <form @submit.prevent="registroUsuario()">
                                     <h4>{{ this.usuario.nombre }}</h4>
                                     <div class="form-group">
@@ -65,7 +63,52 @@
                                 </form>
                                 </div>
                                 <div v-else>
-                                <form @submit.prevent="buscarUsuario">
+                                    <div v-if="sindatos == 1">
+                                    <form @submit.prevent="registroUsuarioNuevo()">
+                                        <div class="form-group">
+                                        <input type="text" v-model="usuario.empleado" placeholder="Número de empleado" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                        <input type="text" v-model="usuario.nombre" placeholder="nombre" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                        <input type="email" v-model="usuario.correo" placeholder="correo" class="form-control" required>
+                                        <small id="emailHelp" class="form-text text-muted">Antes de enviar tu solicitud, asegúrate de haber escrito correctamente tu correo electrónico.</small>
+                                        </div>
+                                        <p>¿Qué edad tienen sus niños?</p>
+                                        <div class="custom-control custom-radio text-left pl-5">
+                                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="5 a 8 años" required>
+                                        <label class="custom-control-label" for="customRadio1">5 a 8 años</label>
+                                        </div>
+                                        <div class="custom-control custom-radio text-left pl-5">
+                                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="9 a 12 años">
+                                        <label class="custom-control-label" for="customRadio2">9 a 12 años</label>
+                                        </div>
+                                        <div class="custom-control custom-radio text-left pl-5">
+                                        <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input" v-model="usuario.rango" value="Tengo niños de ambas edades">
+                                        <label class="custom-control-label" for="customRadio3">Tengo niños de ambas edades</label>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <label for="hijos">¿Cúantos niños tiene?</label>
+                                            <select class="form-control" id="hijos" v-model="usuario.hijos" required>
+                                            <option disabled selected>Selecciona una opción</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                            </select>
+                                        </div>
+                                        <button class="btn btn-danger btn-block">Enviar</button>
+                                    </form>
+                                </div>
+                                <form @submit.prevent="buscarUsuario" v-if="sindatos == 0">
                                     <h3>REGISTRO</h3>
                                 <div class="form-group">
                                     <input type="text" name="empleado" v-model="usuario.empleado" id="empleado" placeholder="Número de empleado" class="form-control">
@@ -174,6 +217,23 @@ export default {
         registroUsuario() {
         fetch('/api/' +this.usuarioToEdit, {
           method: 'PUT',
+          body: JSON.stringify(this.usuario),
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(res => res.json())
+          .then(data => {
+            this.usuario = new Usuario();
+            this.registro = !this.registro;
+            this.formulario = !this.formulario;
+            this.usuarioToEdit = '';
+          });
+        },
+        registroUsuarioNuevo() {
+        fetch('/api/', {
+          method: 'POST',
           body: JSON.stringify(this.usuario),
           headers: {
             'Accept': 'application/json',
